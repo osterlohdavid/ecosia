@@ -4,6 +4,7 @@ view: events {
   dimension: event_id {
     primary_key: yes
     type: string
+    hidden: yes
     sql: ${TABLE}.event_id ;;
   }
 
@@ -15,11 +16,13 @@ view: events {
 
   dimension: base_currency {
     type: string
+    hidden: yes
     sql: ${TABLE}.base_currency ;;
   }
 
   dimension: br_colordepth {
     type: string
+    hidden: yes
     sql: ${TABLE}.br_colordepth ;;
   }
 
@@ -29,61 +32,73 @@ view: events {
   }
 
   dimension: br_family {
+    label: "browser type"
     type: string
     sql: ${TABLE}.br_family ;;
   }
 
   dimension: br_features_director {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.br_features_director ;;
   }
 
   dimension: br_features_flash {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.br_features_flash ;;
   }
 
   dimension: br_features_gears {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.br_features_gears ;;
   }
 
   dimension: br_features_java {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.br_features_java ;;
   }
 
   dimension: br_features_pdf {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.br_features_pdf ;;
   }
 
   dimension: br_features_quicktime {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.br_features_quicktime ;;
   }
 
   dimension: br_features_realplayer {
     type: yesno
+    hidden:  yes
     sql: ${TABLE}.br_features_realplayer ;;
   }
 
   dimension: br_features_silverlight {
     type: yesno
+    hidden:  yes
     sql: ${TABLE}.br_features_silverlight ;;
   }
 
   dimension: br_features_windowsmedia {
     type: yesno
+    hidden:  yes
     sql: ${TABLE}.br_features_windowsmedia ;;
   }
 
   dimension: br_lang {
+    label: "browser language"
     type: string
     sql: ${TABLE}.br_lang ;;
   }
 
   dimension: br_name {
+    label: "browser_name"
     type: string
     sql: ${TABLE}.br_name ;;
   }
@@ -95,11 +110,13 @@ view: events {
 
   dimension: br_type {
     type: string
+    label: "browser type"
     sql: ${TABLE}.br_type ;;
   }
 
   dimension: br_version {
     type: string
+    label: "browser version"
     sql: ${TABLE}.br_version ;;
   }
 
@@ -143,16 +160,19 @@ view: events {
 
   dimension: doc_charset {
     type: string
+    hidden:  yes
     sql: ${TABLE}.doc_charset ;;
   }
 
   dimension: doc_height {
     type: number
+    hidden:  yes
     sql: ${TABLE}.doc_height ;;
   }
 
   dimension: doc_width {
     type: number
+    hidden:  yes
     sql: ${TABLE}.doc_width ;;
   }
 
@@ -187,6 +207,7 @@ view: events {
 
   dimension: dvce_ismobile {
     type: yesno
+    label: "is mobile device?"
     sql: ${TABLE}.dvce_ismobile ;;
   }
 
@@ -216,11 +237,13 @@ view: events {
 
   dimension: dvce_type {
     type: string
+    label: "device type"
     sql: ${TABLE}.dvce_type ;;
   }
 
   dimension: etl_tags {
     type: string
+    hidden: yes
     sql: ${TABLE}.etl_tags ;;
   }
 
@@ -265,6 +288,7 @@ view: events {
 
   dimension: event_version {
     type: string
+    hidden: yes
     sql: ${TABLE}.event_version ;;
   }
 
@@ -280,11 +304,13 @@ view: events {
 
   dimension: geo_latitude {
     type: number
+    hidden:  yes
     sql: ${TABLE}.geo_latitude ;;
   }
 
   dimension: geo_longitude {
     type: number
+    hidden:  yes
     sql: ${TABLE}.geo_longitude ;;
   }
 
@@ -310,11 +336,13 @@ view: events {
 
   dimension: ip_domain {
     type: string
+    hidden: yes
     sql: ${TABLE}.ip_domain ;;
   }
 
   dimension: ip_isp {
     type: string
+    hidden:  yes
     sql: ${TABLE}.ip_isp ;;
   }
 
@@ -325,11 +353,13 @@ view: events {
 
   dimension: ip_organization {
     type: string
+    hidden: yes
     sql: ${TABLE}.ip_organization ;;
   }
 
   dimension: mkt_campaign {
     type: string
+
     sql: ${TABLE}.mkt_campaign ;;
   }
 
@@ -370,16 +400,19 @@ view: events {
 
   dimension: network_userid {
     type: string
+    hidden:  yes
     sql: ${TABLE}.network_userid ;;
   }
 
   dimension: os_family {
     type: string
+    label: "OS"
     sql: ${TABLE}.os_family ;;
   }
 
   dimension: os_manufacturer {
     type: string
+    hidden:  yes
     sql: ${TABLE}.os_manufacturer ;;
   }
 
@@ -445,26 +478,31 @@ view: events {
 
   dimension: pp_xoffset_max {
     type: number
+    hidden:  yes
     sql: ${TABLE}.pp_xoffset_max ;;
   }
 
   dimension: pp_xoffset_min {
     type: number
+    hidden:  yes
     sql: ${TABLE}.pp_xoffset_min ;;
   }
 
   dimension: pp_yoffset_max {
     type: number
+    hidden:  yes
     sql: ${TABLE}.pp_yoffset_max ;;
   }
 
   dimension: pp_yoffset_min {
     type: number
+    hidden:  yes
     sql: ${TABLE}.pp_yoffset_min ;;
   }
 
   dimension: refr_domain_userid {
     type: string
+    hidden: yes
     sql: ${TABLE}.refr_domain_userid ;;
   }
 
@@ -529,126 +567,151 @@ view: events {
 
   dimension: se_action {
     type: string
+    label: "event action"
     sql: ${TABLE}.se_action ;;
   }
 
   dimension: se_category {
     type: string
+    label: "event category"
     sql: ${TABLE}.se_category ;;
   }
 
   dimension: se_label {
     type: string
+    label: "event label"
     sql: ${TABLE}.se_label ;;
   }
 
   dimension: se_property {
     type: string
+    label: "event property"
     sql: ${TABLE}.se_property ;;
   }
 
   dimension: se_value {
     type: number
+    label: "event value"
     sql: ${TABLE}.se_value ;;
   }
 
   dimension: ti_category {
     type: string
+    hidden: yes
     sql: ${TABLE}.ti_category ;;
   }
 
   dimension: ti_currency {
     type: string
+    hidden: yes
     sql: ${TABLE}.ti_currency ;;
   }
 
   dimension: ti_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.ti_name ;;
   }
 
   dimension: ti_orderid {
     type: string
+    hidden: yes
     sql: ${TABLE}.ti_orderid ;;
   }
 
   dimension: ti_price {
     type: number
+    hidden: yes
     sql: ${TABLE}.ti_price ;;
   }
 
   dimension: ti_price_base {
     type: number
+    hidden: yes
     sql: ${TABLE}.ti_price_base ;;
   }
 
   dimension: ti_quantity {
     type: number
+    hidden: yes
     sql: ${TABLE}.ti_quantity ;;
   }
 
   dimension: ti_sku {
     type: string
+    hidden: yes
     sql: ${TABLE}.ti_sku ;;
   }
 
   dimension: tr_affiliation {
     type: string
+    hidden: yes
     sql: ${TABLE}.tr_affiliation ;;
   }
 
   dimension: tr_city {
     type: string
+    hidden: yes
     sql: ${TABLE}.tr_city ;;
   }
 
   dimension: tr_country {
     type: string
+    hidden: yes
     sql: ${TABLE}.tr_country ;;
   }
 
   dimension: tr_currency {
     type: string
+    hidden: yes
     sql: ${TABLE}.tr_currency ;;
   }
 
   dimension: tr_orderid {
     type: string
+    hidden: yes
     sql: ${TABLE}.tr_orderid ;;
   }
 
   dimension: tr_shipping {
     type: number
+    hidden: yes
     sql: ${TABLE}.tr_shipping ;;
   }
 
   dimension: tr_shipping_base {
     type: number
+    hidden: yes
     sql: ${TABLE}.tr_shipping_base ;;
   }
 
   dimension: tr_state {
     type: string
+    hidden: yes
     sql: ${TABLE}.tr_state ;;
   }
 
   dimension: tr_tax {
     type: number
+    hidden: yes
     sql: ${TABLE}.tr_tax ;;
   }
 
   dimension: tr_tax_base {
     type: number
+    hidden: yes
     sql: ${TABLE}.tr_tax_base ;;
   }
 
   dimension: tr_total {
     type: number
+    hidden: yes
     sql: ${TABLE}.tr_total ;;
   }
 
   dimension: tr_total_base {
     type: number
+    hidden: yes
     sql: ${TABLE}.tr_total_base ;;
   }
 
@@ -668,21 +731,25 @@ view: events {
 
   dimension: txn_id {
     type: number
+    hidden: yes
     sql: ${TABLE}.txn_id ;;
   }
 
   dimension: user_fingerprint {
     type: string
+    hidden: yes
     sql: ${TABLE}.user_fingerprint ;;
   }
 
   dimension: user_id {
     type: string
+    hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
   dimension: user_ipaddress {
     type: string
+    hidden: yes
     sql: ${TABLE}.user_ipaddress ;;
   }
 
@@ -698,11 +765,13 @@ view: events {
 
   dimension: v_etl {
     type: string
+    hidden: yes
     sql: ${TABLE}.v_etl ;;
   }
 
   dimension: v_tracker {
     type: string
+    hidden: yes
     sql: ${TABLE}.v_tracker ;;
   }
 
