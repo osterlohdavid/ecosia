@@ -32,7 +32,7 @@ view: events {
   }
 
   dimension: br_family {
-    label: "browser type"
+    label: "Browser"
     type: string
     sql: ${TABLE}.br_family ;;
   }
@@ -92,13 +92,13 @@ view: events {
   }
 
   dimension: br_lang {
-    label: "browser language"
+    label: "Browser Language"
     type: string
     sql: ${TABLE}.br_lang ;;
   }
 
   dimension: br_name {
-    label: "browser_name"
+    label: "Browser Name"
     type: string
     sql: ${TABLE}.br_name ;;
   }
@@ -110,13 +110,13 @@ view: events {
 
   dimension: br_type {
     type: string
-    label: "browser type"
+    label: "Browser Type"
     sql: ${TABLE}.br_type ;;
   }
 
   dimension: br_version {
     type: string
-    label: "browser version"
+    label: "Browser Version"
     sql: ${TABLE}.br_version ;;
   }
 
@@ -207,7 +207,7 @@ view: events {
 
   dimension: dvce_ismobile {
     type: yesno
-    label: "is mobile device?"
+    label: "Is Mobile Device?"
     sql: ${TABLE}.dvce_ismobile ;;
   }
 
@@ -237,7 +237,7 @@ view: events {
 
   dimension: dvce_type {
     type: string
-    label: "device type"
+    label: "Device Type"
     sql: ${TABLE}.dvce_type ;;
   }
 
@@ -567,31 +567,31 @@ view: events {
 
   dimension: se_action {
     type: string
-    label: "event action"
+    label: "Event Action"
     sql: ${TABLE}.se_action ;;
   }
 
   dimension: se_category {
     type: string
-    label: "event category"
+    label: "Event Category"
     sql: ${TABLE}.se_category ;;
   }
 
   dimension: se_label {
     type: string
-    label: "event label"
+    label: "Event Label"
     sql: ${TABLE}.se_label ;;
   }
 
   dimension: se_property {
     type: string
-    label: "event property"
+    label: "Event Property"
     sql: ${TABLE}.se_property ;;
   }
 
   dimension: se_value {
     type: number
-    label: "event value"
+    label: "Event Value"
     sql: ${TABLE}.se_value ;;
   }
 
@@ -785,10 +785,15 @@ view: events {
     fields: [
       event_id,
       event_name,
+      dvce_ismobile,
+      name_tracker,
+      br_family,
       os_name,
       br_name,
-      ti_name,
-      geo_region_name
+      geo_region_name,
+      geo_country,
+      geo_city,
+
     ]
   }
 }
