@@ -775,10 +775,15 @@ view: events {
     sql: ${TABLE}.v_tracker ;;
   }
 
-  measure: count {
+  measure: number_of_events {
     type: count
     drill_fields: [detail*]
   }
+
+  measure: number_of_users
+  {type:count_distinct
+    sql: ${TABLE}.domain_userid ;;
+    }
 
   # ----- Sets of fields for drilling ------
   set: detail {
