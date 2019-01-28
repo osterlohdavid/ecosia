@@ -785,6 +785,11 @@ view: events {
     sql: ${TABLE}.domain_userid ;;
     }
 
+  measure: number_of_sessions
+  {type:count_distinct
+    sql: ${TABLE}.session_id ;;
+    }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
