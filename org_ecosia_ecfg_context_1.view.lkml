@@ -1,8 +1,10 @@
 view: org_ecosia_ecfg_context_1 {
+  view_label: "ECFG cookie context"
   sql_table_name: atomic.org_ecosia_ecfg_context_1 ;;
 
+
   dimension: addon {
-    type: number
+    type: yesno
     sql: ${TABLE}.addon ;;
   }
 
