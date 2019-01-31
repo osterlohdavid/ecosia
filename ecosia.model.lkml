@@ -25,4 +25,92 @@ explore: events {
     relationship: one_to_one
     sql_on: ${events.event_id} = ${org_ecosia_ecfg_context_1.root_id} ;;
   }
+  join: org_ecosia_abtest_context_1 {
+    view_label: "AB Test"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_abtest_context_1.root_id} ;;
+  }
+  join: org_ecosia_ad_context_2 {
+    view_label: "Ad Shown Details"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_ad_context_2.root_id} ;;
+  }
+  join: org_ecosia_advert_click_event_1 {
+    view_label: "Ad Click Details"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_advert_click_event_1.root_id} ;;
+  }
+  join: org_ecosia_android_install_event_1 {
+    view_label: "Android Installs"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_android_install_event_1.root_id} ;;
+  }
+  join: org_ecosia_install_event_1 {
+    view_label: "All Installs"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_install_event_1.root_id} ;;
+  }
+  join: org_ecosia_ios_install_event_1 {
+    view_label: "iOS Installs"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_ios_install_event_1.root_id} ;;
+  }
+  join: org_ecosia_knowledge_context_1 {
+    view_label: "Entity Information Received"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_install_event_1.root_id} ;;
+  }
+  join: org_ecosia_search_event_1 {
+    view_label: "Search Event Details"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_search_event_1.root_id} ;;
+  }
+  join: org_ecosia_slottings_context_1 {
+    view_label: "Slotting Signals"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_slottings_context_1.root_id} ;;
+  }
+}
+
+explore: search_events{
+  view_name: org_ecosia_search_event_1
+  join: org_ecosia_ecfg_context_1 {
+    view_label: "ECFG"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${org_ecosia_search_event_1.root_id} = ${org_ecosia_ecfg_context_1.root_id} ;;
+  }
+  join: org_ecosia_ad_context_2 {
+    view_label: "Ad Shown Details"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${org_ecosia_search_event_1.root_id} = ${org_ecosia_ad_context_2.root_id} ;;
+  }
+  join: org_ecosia_knowledge_context_1 {
+    view_label: "Entity Information Received"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${org_ecosia_search_event_1.root_id} = ${org_ecosia_knowledge_context_1.root_id} ;;
+  }
+  join: org_ecosia_slottings_context_1 {
+    view_label: "Slotting Signals"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${org_ecosia_search_event_1.root_id} = ${org_ecosia_slottings_context_1.root_id} ;;
+  }
+  join: org_ecosia_weather_context_1 {
+    view_label: "Weather Widget info"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${org_ecosia_search_event_1.root_id} = ${org_ecosia_weather_context_1.root_id} ;;
+  }
 }
