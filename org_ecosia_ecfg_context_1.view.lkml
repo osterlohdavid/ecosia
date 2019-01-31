@@ -56,7 +56,7 @@ view: org_ecosia_ecfg_context_1 {
 
   dimension: language {
     type: string
-    sql: ${TABLE}.language ;;
+    sql: LOWER(${TABLE}.language) ;;
   }
 
   dimension: lasttree {
@@ -125,16 +125,19 @@ view: org_ecosia_ecfg_context_1 {
 
   dimension: schema_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_name ;;
   }
 
   dimension: schema_vendor {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_vendor ;;
   }
 
   dimension: schema_version {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_version ;;
   }
 
