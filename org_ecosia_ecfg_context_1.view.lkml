@@ -20,6 +20,7 @@ view: org_ecosia_ecfg_context_1 {
 
   dimension: cid {
     type: string
+    hidden: yes
     sql: ${TABLE}.cid ;;
   }
 
@@ -101,6 +102,8 @@ view: org_ecosia_ecfg_context_1 {
 
   dimension: root_id {
     type: string
+    primary_key: yes
+    hidden: yes
     sql: ${TABLE}.root_id ;;
   }
 
@@ -120,6 +123,7 @@ view: org_ecosia_ecfg_context_1 {
 
   dimension: schema_format {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_format ;;
   }
 

@@ -78,11 +78,13 @@ view: org_ecosia_knowledge_context_1 {
 
   dimension: ref_parent {
     type: string
+    hidden: yes
     sql: ${TABLE}.ref_parent ;;
   }
 
   dimension: ref_root {
     type: string
+    hidden: yes
     sql: ${TABLE}.ref_root ;;
   }
 
@@ -93,6 +95,8 @@ view: org_ecosia_knowledge_context_1 {
 
   dimension: root_id {
     type: string
+    hidden: yes
+    primary_key: yes
     sql: ${TABLE}.root_id ;;
   }
 
@@ -112,21 +116,25 @@ view: org_ecosia_knowledge_context_1 {
 
   dimension: schema_format {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_format ;;
   }
 
   dimension: schema_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_name ;;
   }
 
   dimension: schema_vendor {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_vendor ;;
   }
 
   dimension: schema_version {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_version ;;
   }
 

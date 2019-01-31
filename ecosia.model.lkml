@@ -113,4 +113,10 @@ explore: search_events{
     relationship: one_to_one
     sql_on: ${org_ecosia_search_event_1.root_id} = ${org_ecosia_weather_context_1.root_id} ;;
   }
+  join: events {
+    view_label: "Events Info"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${org_ecosia_search_event_1.root_id} = ${events.event_id} ;;
+  }
 }

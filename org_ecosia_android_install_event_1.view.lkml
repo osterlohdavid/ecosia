@@ -18,16 +18,20 @@ view: org_ecosia_android_install_event_1 {
 
   dimension: ref_root {
     type: string
+    hidden: yes
     sql: ${TABLE}.ref_root ;;
   }
 
   dimension: ref_tree {
     type: string
+
     sql: ${TABLE}.ref_tree ;;
   }
 
   dimension: root_id {
     type: string
+    primary_key: yes
+    hidden: yes
     sql: ${TABLE}.root_id ;;
   }
 
@@ -47,21 +51,25 @@ view: org_ecosia_android_install_event_1 {
 
   dimension: schema_format {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_format ;;
   }
 
   dimension: schema_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_name ;;
   }
 
   dimension: schema_vendor {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_vendor ;;
   }
 
   dimension: schema_version {
     type: string
+    hidden: yes
     sql: ${TABLE}.schema_version ;;
   }
 
