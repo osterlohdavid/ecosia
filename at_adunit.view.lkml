@@ -19,12 +19,6 @@ view: at_adunit {
     sql: ${TABLE}.adunitname ;;
   }
 
-  dimension: clicks {
-    label: "Clicks"
-    type: number
-    sql: ${TABLE}.clicks ;;
-  }
-
   dimension_group: date {
     type: time
     timeframes: [
@@ -46,20 +40,16 @@ view: at_adunit {
     sql: ${TABLE}.devicetype ;;
   }
 
-  measure: estimatedrevenue {
-    type: number
-    sql: ${TABLE}.estimatedrevenue ;;
-  }
-
   dimension: hour {
     type: number
     sql: ${TABLE}.hour ;;
   }
-
-  measure: impressions {
-    type: number
-    sql: ${TABLE}.impressions ;;
-  }
+  dimension: dateandtime
+  {
+    type: date_time
+    datatype: datetime
+    sql: ${TABLE}.date||' '||${TABLE}.hour||':00:00' ;;
+    }
 
   dimension: language {
     type: string
@@ -71,15 +61,7 @@ view: at_adunit {
     sql: ${TABLE}.market ;;
   }
 
-  measure: queries {
-    type: number
-    sql: ${TABLE}.queries ;;
-  }
 
-  dimension: srpvs {
-    type: number
-    sql: ${TABLE}.srpvs ;;
-  }
 
   dimension: usercountry {
     type: string
@@ -91,9 +73,27 @@ view: at_adunit {
     primary_key: yes
     sql: ${TABLE}.prim_key ;;
   }
-
-  measure: count {
-    type: count
-    drill_fields: [adunitname]
+  measure: estimatedrevenue {
+    label: "Gross Revenue (EUR)"
+    type: number
+    sql:SUM( ${TABLE}.estimatedrevenue) ;;
+  }
+  measure: srpvs {
+    label: "SRPVS"
+    type: number
+    sql: SUM(${TABLE}.srpvs) ;;
+  }
+  measure: clicks {
+    label: "Clicks"
+    type: number
+    sql: SUM(${TABLE}.clicks) ;;
+  }
+  measure: impressions {
+    type: number
+    sql: SUM(${TABLE}.impressions) ;;
+  }
+  measure: queries {
+    type: number
+    sql: SUM(${TABLE}.queries) ;;
   }
 }
