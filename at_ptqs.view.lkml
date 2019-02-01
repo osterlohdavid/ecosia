@@ -1,5 +1,11 @@
 view: at_ptqs {
-  sql_table_name: pubcenter.at_ptqs ;;
+  derived_table: {
+    sql:
+      SELECT
+        row_number() OVER(ORDER BY date,hour,adunitid,devicetype) AS prim_key,
+        *
+      FROM pubcenter.at_ptqs;;
+  }
 
   dimension: adctr {
     type: number
@@ -80,5 +86,11 @@ view: at_ptqs {
   measure: count {
     type: count
     drill_fields: [adunitname]
+  }
+  dimension: prim_key {
+    type: number
+    primary_key: yes
+    hidden: yes
+    sql: ${TABLE}.prim_key ;;
   }
 }

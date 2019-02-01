@@ -1,5 +1,12 @@
+
 view: at_productad {
-  sql_table_name: pubcenter.at_productad ;;
+  derived_table: {
+    sql:
+      SELECT
+        row_number() OVER(ORDER BY date,hour,adunitid,devicetype) AS prim_key,
+        *
+      FROM pubcenter.at_productad ;;
+  }
 
   dimension: adunitid {
     type: number
@@ -66,7 +73,12 @@ view: at_productad {
     type: string
     sql: ${TABLE}.usercountry ;;
   }
-
+  dimension: prim_key {
+    type: number
+    primary_key: yes
+    hidden: yes
+    sql: ${TABLE}.prim_key ;;
+  }
   measure: count {
     type: count
     drill_fields: [adunitname]

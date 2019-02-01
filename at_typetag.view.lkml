@@ -1,6 +1,11 @@
-view: at_typetag {
-  sql_table_name: pubcenter.at_typetag ;;
-
+  view: at_typetag {
+    derived_table: {
+      sql:
+      SELECT
+        row_number() OVER(ORDER BY date,hour,adunitid,devicetype) AS prim_key,
+        *
+      FROM pubcenter.at_typetag;;
+    }
   dimension: adunitid {
     type: number
     value_format_name: id
@@ -76,6 +81,11 @@ view: at_typetag {
     type: string
     sql: ${TABLE}.typetag ;;
   }
+    dimension: prim_key {
+      type: number
+      primary_key: yes
+      sql: ${TABLE}.prim_key ;;
+    }
 
   measure: count {
     type: count
