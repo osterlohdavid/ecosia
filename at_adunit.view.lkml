@@ -20,6 +20,7 @@ view: at_adunit {
   }
 
   dimension: clicks {
+    label: "Clicks"
     type: number
     sql: ${TABLE}.clicks ;;
   }
@@ -40,11 +41,12 @@ view: at_adunit {
   }
 
   dimension: devicetype {
+    label: "Device Type"
     type: string
     sql: ${TABLE}.devicetype ;;
   }
 
-  dimension: estimatedrevenue {
+  measure: estimatedrevenue {
     type: number
     sql: ${TABLE}.estimatedrevenue ;;
   }
@@ -54,7 +56,7 @@ view: at_adunit {
     sql: ${TABLE}.hour ;;
   }
 
-  dimension: impressions {
+  measure: impressions {
     type: number
     sql: ${TABLE}.impressions ;;
   }
@@ -69,7 +71,7 @@ view: at_adunit {
     sql: ${TABLE}.market ;;
   }
 
-  dimension: queries {
+  measure: queries {
     type: number
     sql: ${TABLE}.queries ;;
   }
