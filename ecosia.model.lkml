@@ -120,3 +120,6 @@ explore: search_events{
     sql_on: ${org_ecosia_search_event_1.root_id} = ${events.event_id} ;;
   }
 }
+
+explore: at_adunit
+{view_label: "Bing Ad Report (per Adunit)"}
