@@ -39,18 +39,10 @@ view: at_adunit {
     type: string
     sql: ${TABLE}.devicetype ;;
   }
-
   dimension: hour {
     type: number
     sql: ${TABLE}.hour ;;
   }
-  dimension: dateandtime
-  {
-    type: date_time
-    datatype: datetime
-    sql: ${TABLE}.date||' '||${TABLE}.hour||':00:00' ;;
-    }
-
   dimension: language {
     type: string
     sql: ${TABLE}.language ;;
@@ -60,9 +52,6 @@ view: at_adunit {
     type: string
     sql: ${TABLE}.market ;;
   }
-
-
-
   dimension: usercountry {
     type: string
     sql: ${TABLE}.usercountry ;;
@@ -73,27 +62,50 @@ view: at_adunit {
     primary_key: yes
     sql: ${TABLE}.prim_key ;;
   }
-  measure: estimatedrevenue {
-    label: "Gross Revenue (EUR)"
+  dimension: estimatedrevenue {
     type: number
-    sql:SUM( ${TABLE}.estimatedrevenue) ;;
+    sql: ${TABLE}.estimatedrevenue ;;
   }
+  measure: gross_revenue_eur
+  {type: sum
+    label: "Gross Revenue EUR"
+    sql:${TABLE}.estimatedrevenue
+    }
+
+  measure: cost_to_serve
+    {type: sum
+      label: "Cost To Serve EUR"
+      sql:${TABLE}.srpvs/1000*0.88
+    }
   measure: srpvs {
     label: "SRPVS"
-    type: number
-    sql: SUM(${TABLE}.srpvs) ;;
+    type: sum
+    sql: ${TABLE}.srpvs ;;
   }
   measure: clicks {
     label: "Clicks"
-    type: number
-    sql: SUM(${TABLE}.clicks) ;;
+    type: sum
+    sql: ${TABLE}.clicks ;;
   }
   measure: impressions {
-    type: number
-    sql: SUM(${TABLE}.impressions) ;;
+    type: sum
+    sql: ${TABLE}.impressions ;;
   }
   measure: queries {
+    type: sum
+    sql: ${TABLE}.queries ;;
+  }
+  measure: net_revenue {
+    label: "Net_Revenue (EUR)"
+    type: sum
+    ###FORMULA: (Gross revenue *98,78% (aka Revenue Adjustment) * 95% (aka Fees for Credit card and such)
+    #  - Cost To Serve (which is 1 USD per 1000 srpvs with current exchange rate 0.88 EUR))
+    #  * 88% (12% deduction fro MSFT as Royalties)
+    sql:( ${TABLE}.estimatedrevenue*0.9878*0.95 - (${TABLE}.srpvs/1000)*0.88)*0.88 ;;
+  }
+  measure: net_rpm{
+    label: "Net RPM (EUR)"
     type: number
-    sql: SUM(${TABLE}.queries) ;;
+    sql: ${net_revenue}/${TABLE}.srpvs/1000 ;;
   }
 }
