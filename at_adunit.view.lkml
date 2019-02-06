@@ -69,13 +69,13 @@ view: at_adunit {
   measure: gross_revenue_eur
   {type: sum
     label: "Gross Revenue EUR"
-    sql:${TABLE}.estimatedrevenue
+    sql:${TABLE}.estimatedrevenue;;
     }
 
   measure: cost_to_serve
     {type: sum
       label: "Cost To Serve EUR"
-      sql:${TABLE}.srpvs/1000*0.88
+      sql:${TABLE}.srpvs/1000*0.88;;
     }
   measure: srpvs {
     label: "SRPVS"
