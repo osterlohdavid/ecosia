@@ -66,16 +66,25 @@ view: at_adunit {
     type: string
     sql: ${TABLE}.language ;;
   }
-
-  dimension: market {
-    type: string
-    sql: ${TABLE}.market ;;
+    dimension: market {
+      type: string
+      sql: ${TABLE}.market ;;
+      hidden: yes
+  }
+    dimension:market_geo {
+      type: string
+      map_layer_name: countries
+      sql:  ${market};;
   }
   dimension: usercountry {
-    type: string
+    type: location
     sql: ${TABLE}.usercountry ;;
   }
-
+  dimension:country {
+    type: string
+    map_layer_name: countries
+    sql:  ${usercountry};;
+  }
    dimension: prim_key {
     type: number
     primary_key: yes
