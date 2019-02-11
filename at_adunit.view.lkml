@@ -37,12 +37,31 @@ view: at_adunit {
   dimension: devicetype {
     label: "Device Type"
     type: string
-    sql: ${TABLE}.devicetype ;;
+    sql: case when ${TABLE}.devicetype ='HiFi PHone' then 'Mobile'
+    ELSE ${TABLE}.devicetype END;;
   }
   dimension: hour {
     type: number
     sql: ${TABLE}.hour ;;
   }
+
+  dimension_group: date_hour {
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    convert_tz: no
+    datatype: date
+    sql: cast(${date_date}|| ' ' || ${hour} ||':00:00' as timestamp)  ;;
+  }
+
+
+
   dimension: language {
     type: string
     sql: ${TABLE}.language ;;
@@ -64,36 +83,55 @@ view: at_adunit {
   }
   dimension: estimatedrevenue {
     type: number
+    hidden:  yes
     sql: ${TABLE}.estimatedrevenue ;;
   }
+  dimension: srpvs_raw {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.srpvs ;;
+  }
+  dimension: clicks_raw {
+    hidden: yes
+    type: number
+    sql: ${TABLE}.clicks ;;
+  }
+  dimension: impressions_raw {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.impressions ;;
+  }
+  dimension: queries_raw {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.queries ;;
+  }
+
   measure: gross_revenue_eur
   {type: sum
-    label: "Gross Revenue EUR"
-    sql:${TABLE}.estimatedrevenue;;
+    sql:  ${estimatedrevenue};;
     }
 
   measure: cost_to_serve
     {type: sum
       label: "Cost To Serve EUR"
-      sql:${TABLE}.srpvs/1000*0.88;;
+      sql:${srpvs_raw}/1000*0.88;;
     }
-  measure: srpvs {
-    label: "SRPVS"
+  measure: srpvs{
     type: sum
-    sql: ${TABLE}.srpvs ;;
+    sql: ${srpvs_raw} ;;
   }
   measure: clicks {
-    label: "Clicks"
     type: sum
-    sql: ${TABLE}.clicks ;;
+    sql: ${clicks_raw};;
   }
   measure: impressions {
     type: sum
-    sql: ${TABLE}.impressions ;;
+    sql: ${impressions_raw} ;;
   }
   measure: queries {
     type: sum
-    sql: ${TABLE}.queries ;;
+    sql: ${queries_raw} ;;
   }
   measure: net_revenue {
     label: "Net_Revenue (EUR)"
