@@ -27,7 +27,7 @@ view: org_ecosia_ecfg_context_1 {
   dimension: country {
     type: string
     map_layer_name: countries
-    sql: ${TABLE}.country ;;
+    sql: UPPER(${TABLE}.country) ;;
   }
 
   dimension: custom {

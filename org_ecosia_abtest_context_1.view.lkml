@@ -3,6 +3,8 @@ view: org_ecosia_abtest_context_1 {
 
   dimension: ab_tests {
     type: string
+    label: "Which A/B Test"
+    description: "Choose the A/B test for your test"
     sql: ${TABLE}.ab_tests ;;
   }
 
@@ -20,6 +22,7 @@ view: org_ecosia_abtest_context_1 {
 
   dimension: ref_tree {
     type: string
+    hidden: yes
     sql: ${TABLE}.ref_tree ;;
   }
 
@@ -32,6 +35,7 @@ view: org_ecosia_abtest_context_1 {
 
   dimension_group: root_tstamp {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,

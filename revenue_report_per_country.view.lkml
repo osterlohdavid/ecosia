@@ -1,4 +1,4 @@
-view: at_adunit {
+view: revenue_report_per_country {
  derived_table: {
     sql:
       SELECT
@@ -12,16 +12,16 @@ view: at_adunit {
     type: number
     value_format_name: id
     sql: ${TABLE}.adunitid ;;
-    drill_fields: [detail*]
+    hidden: yes
   }
 
   dimension: adunitname {
     type: string
     sql: ${TABLE}.adunitname ;;
-    drill_fields: [detail*]
+    hidden: yes
   }
 
-  dimension_group: date {
+  dimension_group: revenue {
     type: time
     timeframes: [
       raw,
@@ -29,7 +29,8 @@ view: at_adunit {
       week,
       month,
       quarter,
-      year
+      year,
+      month_name
     ]
     convert_tz: no
     datatype: date
@@ -37,34 +38,29 @@ view: at_adunit {
     drill_fields: [detail*]
   }
 
+dimension: hour_raw {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.hour ;;
+  }
+
+  dimension: hour {
+    type: date_hour
+    group_label: "Revenue Date"
+    convert_tz: no
+    datatype: date
+    sql: cast(${revenue_date}|| ' ' || ${hour_raw} ||':00:00' as timestamp)  ;;
+    drill_fields: [detail*]
+  }
+
+
   dimension: devicetype {
     label: "Device Type"
     type: string
     sql: case when ${TABLE}.devicetype ='HiFi Phone' then 'Mobile' when ${TABLE}.devicetype= 'PC' then 'Desktop'
-    ELSE ${TABLE}.devicetype END;;
+      ELSE ${TABLE}.devicetype END;;
     drill_fields: [detail*]
   }
-  dimension: hour {
-    type: number
-    sql: ${TABLE}.hour ;;
-  }
-
-  dimension_group: date_hour {
-    type: time
-    timeframes: [
-      raw,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    convert_tz: no
-    datatype: date
-    sql: cast(${date_date}|| ' ' || ${hour} ||':00:00' as timestamp)  ;;
-    drill_fields: [detail*]
-  }
-
 
 
   dimension: language {
@@ -72,30 +68,26 @@ view: at_adunit {
     sql: ${TABLE}.language ;;
     drill_fields: [detail*]
   }
-    dimension: market {
+
+    dimension:market {
       type: string
-      sql: ${TABLE}.market ;;
-      hidden: yes
-  }
-    dimension:market_geo {
-      type: string
+      description: "Bing market allocated to the user"
       map_layer_name: countries
-      sql:  ${market};;
+      sql: ${TABLE}.market;;
       drill_fields: [detail*]
   }
-  dimension: usercountry {
-    type: location
-    sql: ${TABLE}.usercountry ;;
-    drill_fields: [detail*]
-  }
+
   dimension:country {
     type: string
+    description: "User location country"
     map_layer_name: countries
-    sql:  ${usercountry};;
+    sql:  ${TABLE}.usercountry;;
+    drill_fields: [detail*]
   }
    dimension: prim_key {
     type: number
     primary_key: yes
+    hidden: yes
     sql: ${TABLE}.prim_key ;;
   }
   dimension: estimatedrevenue {
@@ -132,6 +124,7 @@ view: at_adunit {
   measure: cost_to_serve
     {type: sum
       label: "Cost To Serve EUR"
+      description: "Calculates the cost of 1000 searches"
       sql:${srpvs_raw}/1000*0.88;;
     }
   measure: srpvs{
@@ -153,7 +146,7 @@ view: at_adunit {
     drill_fields: [detail*]
   }
   measure: net_revenue {
-    label: "Net_Revenue (EUR)"
+    label: "Net Revenue (EUR)"
     type: sum
     ###FORMULA: (Gross revenue *98,78% (aka Revenue Adjustment) * 95% (aka Fees for Credit card and such)
     #  - Cost To Serve (which is 1 USD per 1000 srpvs with current exchange rate 0.88 EUR))
@@ -175,13 +168,12 @@ view: at_adunit {
     adunitid,
     country,
     devicetype,
-    usercountry,
-    date_week,
-    date_year,
-    date_month,
+    revenue_week,
+    revenue_year,
+    revenue_month,
     language,
-    market,
-    market_geo
+    market
     ]
   }
+
 }

@@ -28,6 +28,7 @@ view: events {
 
   dimension: br_cookies {
     type: yesno
+    hidden: yes
     sql: ${TABLE}.br_cookies ;;
   }
 

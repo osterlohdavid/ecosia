@@ -18,9 +18,15 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
+explore: revenue_report_per_country {
+  view_label: "Bing Ad Report (per Adunit)"
+  description: "This Explore is derived from MSFT revenue data"
+  }
+
+
 explore: events {
   join: org_ecosia_ecfg_context_1 {
-    view_label: "ECFG"
+    view_label: "ECFG User cookie data"
     type: left_outer
     relationship: one_to_one
     sql_on: ${events.event_id} = ${org_ecosia_ecfg_context_1.root_id} ;;
@@ -120,6 +126,3 @@ explore: search_events{
     sql_on: ${org_ecosia_search_event_1.root_id} = ${events.event_id} ;;
   }
 }
-
-explore: at_adunit
-{view_label: "Bing Ad Report (per Adunit)"}
