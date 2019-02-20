@@ -26,9 +26,12 @@ explore: revenue_report_per_country {
 
 explore: revenue_report_product_ad {
   view_label: "Bing Product Ads Report (per Country)"
-  description: "This Explore shows the revenue from Display Ads per Country (data source:MSFT pubcenter)"
+  description: "Aggregated Revenue from Product Ads per Country (data source:MSFT pubcenter)"
 }
-
+explore: revenue_report_per_typetag {
+  view_label: "Bing Marketing Report (per Typetag)"
+  description: "Aggregated Revenue per Marketing Source - aka Typetag (data source:MSFT pubcenter)"
+}
 
 explore: events {
   join: org_ecosia_ecfg_context_1 {
