@@ -1,6 +1,7 @@
 
-view: at_productad {
+view: revenue_report_product_ad {
   derived_table: {
+
     sql:
       SELECT
         row_number() OVER(ORDER BY date,hour,adunitid,devicetype) AS prim_key,

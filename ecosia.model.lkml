@@ -19,9 +19,15 @@ include: "*.view.lkml"                       # include all views in this project
 # }
 
 explore: revenue_report_per_country {
-  view_label: "Bing Ad Report (per Adunit)"
-  description: "This Explore is derived from MSFT revenue data"
+  view_label: "Bing Ads Report (per Country)"
+  description: "Aggregated Revenue from Display Ads per Country (data source:MSFT pubcenter)"
   }
+
+
+explore: revenue_report_product_ad {
+  view_label: "Bing Product Ads Report (per Country)"
+  description: "This Explore shows the revenue from Display Ads per Country (data source:MSFT pubcenter)"
+}
 
 
 explore: events {
