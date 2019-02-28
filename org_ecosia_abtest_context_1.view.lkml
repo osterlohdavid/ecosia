@@ -3,9 +3,62 @@ view: org_ecosia_abtest_context_1 {
 
   dimension: ab_tests {
     type: string
+    hidden: yes
     label: "Which A/B Test"
     description: "Choose the A/B test for your test"
     sql: ${TABLE}.ab_tests ;;
+  }
+
+parameter: input{
+type: unquoted
+allowed_value: {label:"One"
+  value: "1"}
+allowed_value: {label:"Two"
+  value:"2"}
+
+}
+
+  dimension: test_name_1 {
+    type: string
+    label: "Which A/B test"
+    description: "Choose the A/B test for your test"
+    sql: {% if input._parameter_value == '1' %} json_extract_path_text(JSON_EXTRACT_ARRAY_ELEMENT_TEXT(${ab_tests}, 0), 'test')
+    {% elsif input._parameter_value=='2' %} json_extract_path_text(JSON_EXTRACT_ARRAY_ELEMENT_TEXT(${ab_tests}, 1), 'test')
+    {% else %}
+    json_extract_path_text(JSON_EXTRACT_ARRAY_ELEMENT_TEXT(${ab_tests}, 18), 'value')
+    {% endif %}
+    ;;
+  }
+  dimension: ab_2018_stg_value{
+    type: string
+    label: "Which A/B test group"
+    description: "A/B test groups"
+    sql: json_extract_path_text(JSON_EXTRACT_ARRAY_ELEMENT_TEXT(${ab_tests}, 0), 'value');;
+  }
+
+  dimension: test_name_2 {
+    type: string
+    label: "Which A/B test"
+    description: "Choose the A/B test for your test"
+    sql: json_extract_path_text(JSON_EXTRACT_ARRAY_ELEMENT_TEXT(${ab_tests}, 1), 'test');;
+  }
+  dimension: test_value_2 {
+    type: string
+    label: "Which A/B test group"
+    description: "Choose the A/B test for your test"
+    sql: json_extract_path_text(JSON_EXTRACT_ARRAY_ELEMENT_TEXT(${ab_tests}, 1), 'value');;
+  }
+  dimension: test_name_3 {
+    type: string
+    label: "Which A/B test"
+    description: "Choose the A/B test for your test"
+    sql: json_extract_path_text(JSON_EXTRACT_ARRAY_ELEMENT_TEXT(${ab_tests}, 2), 'test');;
+  }
+  dimension: test_value_3 {
+    type: string
+    label: "Which A/B test group"
+    description: "Choose the A/B test for your test"
+    sql: json_extract_path_text(JSON_EXTRACT_ARRAY_ELEMENT_TEXT(${ab_tests}, 2), 'value');;
   }
 
   dimension: ref_parent {

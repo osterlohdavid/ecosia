@@ -6,21 +6,17 @@ view: revenue_report_per_country {
         *
       FROM pubcenter.at_adunit ;;
     }
-
-
   dimension: adunitid {
     type: number
     value_format_name: id
     sql: ${TABLE}.adunitid ;;
     hidden: yes
   }
-
   dimension: adunitname {
     type: string
     sql: ${TABLE}.adunitname ;;
     hidden: yes
   }
-
   dimension_group: revenue {
     type: time
     timeframes: [
@@ -38,7 +34,7 @@ view: revenue_report_per_country {
     drill_fields: [detail*]
   }
 
-dimension: hour_raw {
+  dimension: hour_raw {
     type: number
     hidden: yes
     sql: ${TABLE}.hour ;;
@@ -116,7 +112,7 @@ dimension: hour_raw {
     sql: ${TABLE}.queries ;;
   }
 
-  measure: gross_revenue_eur
+  measure: gross_revenue
   {type: sum
     sql:  ${estimatedrevenue};;
     }
@@ -155,10 +151,26 @@ dimension: hour_raw {
     value_format: "\"€\"0"
     drill_fields: [detail*]
   }
+
+  measure: gross_rpmi{
+    label: "Gross RPM - Ad Impressions (EUR)"
+    description: "Gross revenue per thousand ad impressions"
+    type: number
+    sql: ${gross_revenue}/(${impressions}/1000) ;;
+    value_format: "\"€\"0.00"
+    drill_fields: [detail*]
+  }
+  measure: click_trough_rate {
+    description: "% of Ad Impressions that were clicked"
+    type: number
+    sql: ${clicks}/(${impressions}) ;;
+    value_format: "0.000%"
+  }
+
   measure: net_rpm{
     label: "Net RPM (EUR)"
     type: number
-    sql: ${net_revenue}/(${srpvs}/1000) ;;
+    sql: CASE WHEN ${srpvs}>0 THEN ${net_revenue}/(${srpvs}/1000.0) ELSE NULL END ;;
     value_format: "\"€\"0.00"
     drill_fields: [detail*]
   }
@@ -175,5 +187,4 @@ dimension: hour_raw {
     market
     ]
   }
-
 }

@@ -114,29 +114,32 @@ view: revenue_report_product_ad {
     type: sum
     sql: ${impressions_raw} ;;
     }
-  measure: cost_to_serve{
-    type: sum
-    description: "Calculates the cost of 1000 searches(EUR)"
-    sql:${impressions_raw}/1000*0.88;;
-    }
+
   measure: net_revenue {
     description: "Net revenue in EUR (after paying MSFT loyalties, cost to serve and other additional fees)"
     type: sum
       ###FORMULA: (Gross revenue *98,78% (aka Revenue Adjustment) * 95% (aka Fees for Credit card and such)
-      #  - Cost To Serve (which is 1 USD per 1000 srpvs with current exchange rate 0.88 EUR))
+      # )
       #  * 88% (12% deduction from MSFT as Royalties)
-    sql:( ${TABLE}.estimatedrevenue*0.9878*0.95 - (${TABLE}.impressions/1000)*0.88)*0.88 ;;
+    sql:( ${TABLE}.estimatedrevenue*0.9878*0.95)*0.88 ;;
     value_format: "\"€\"0"
     drill_fields: [detail*]
     }
-  measure: net_rpm{
-    label: "Net RPM (EUR)"
-    description: "Net revenue per thousand searches"
+  measure: gross_rpmi{
+    label: "Gross RPM - Ad Impressions (EUR)"
+    description: "Gross revenue per thousand ad impressions"
     type: number
-    sql: ${net_revenue}/(${impressions}/1000) ;;
+    sql: ${gross_revenue}/(${impressions}/1000) ;;
     value_format: "\"€\"0.00"
     drill_fields: [detail*]
-    }
+  }
+  measure: click_trough_rate {
+    description: "% of Ad Impressions that were clicked"
+    type: number
+    sql: ${clicks}/(${impressions}) ;;
+    value_format: "0.000%"
+  }
+
   set: detail {
     fields: [
         adunitname,

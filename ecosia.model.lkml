@@ -19,19 +19,61 @@ include: "*.view.lkml"                       # include all views in this project
 # }
 
 explore: revenue_report_per_country {
-  view_label: "Bing Ads Report (per Country)"
+  view_name: revenue_report_per_country
+  group_label: "Overall Revenue"
   description: "Aggregated Revenue from Display Ads per Country (data source:MSFT pubcenter)"
   }
 
 
+explore: overall_report_per_country {
+  view_name: revenue_report_per_country
+  group_label: "Overall Revenue"
+  description: "Aggregated Revenue from Display Ads per Country (data source:MSFT pubcenter)"
+  join: revenue_report_product_ad {
+    type: left_outer
+    relationship: many_to_many
+    sql_on: ${revenue_report_per_country.country}=${revenue_report_product_ad.country}
+          and ${revenue_report_per_country.adunitid} = ${revenue_report_product_ad.adunitid}
+          and ${revenue_report_per_country.hour_raw} =${revenue_report_product_ad.hour_raw}
+          and ${revenue_report_per_country.revenue_date} =${revenue_report_product_ad.revenue_date};;
+  }
+}
+
+
 explore: revenue_report_product_ad {
   view_label: "Bing Product Ads Report (per Country)"
+  group_label: "Overall Revenue"
   description: "Aggregated Revenue from Product Ads per Country (data source:MSFT pubcenter)"
 }
+
 explore: revenue_report_per_typetag {
   view_label: "Bing Marketing Report (per Typetag)"
+  group_label: "Marketing"
   description: "Aggregated Revenue per Marketing Source - aka Typetag (data source:MSFT pubcenter)"
+  join: link_database
+  {type:left_outer
+    relationship:one_to_one
+    sql_on:${revenue_report_per_typetag.typetag}=${link_database.typetag};;
+  }
 }
+
+explore: marketing_events {
+  view_name: events
+  join: org_ecosia_ecfg_context_1 {
+    view_label: "ECFG User cookie data"
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${events.event_id} = ${org_ecosia_ecfg_context_1.root_id} ;;
+  }
+  join: revenue_report_per_typetag
+  {view_label:"Typetag Revenue"
+    type: left_outer
+    relationship: many_to_many
+    sql_on:${revenue_report_per_typetag.typetag} =${org_ecosia_ecfg_context_1.typetag}
+}
+
+
+
 
 explore: events {
   join: org_ecosia_ecfg_context_1 {

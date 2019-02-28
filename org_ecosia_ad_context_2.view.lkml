@@ -25,6 +25,7 @@ view: org_ecosia_ad_context_2 {
 
   dimension: ref_tree {
     type: string
+    hidden: yes
     sql: ${TABLE}.ref_tree ;;
   }
 
