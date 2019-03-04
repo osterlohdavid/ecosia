@@ -87,7 +87,7 @@ explore: arrivals{
 
 explore: marketing_touches_desktop{
 view_name: touches
-group_label: "Marrketing"
+group_label: "Marketing"
 join: link_database
   {view_label:"Campaign Attributes"
     type: left_outer
@@ -98,7 +98,7 @@ join: link_database
 
 explore: marketing_first_touch_desktop{
   view_name: ftouch_all
-  group_label: "Marrketing"
+  group_label: "Marketing"
   join: link_database
   {view_label:"Campaign Attributes"
     type: left_outer
