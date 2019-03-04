@@ -3,10 +3,11 @@ view: arrivals {
 
   dimension: arrivals {
     type: number
+    description: "Users Landing per day"
     sql: ${TABLE}.arrivals ;;
   }
 
-  dimension_group: collector_tstamp {
+  dimension_group: Arrival {
     type: time
     timeframes: [
       raw,
@@ -26,8 +27,9 @@ view: arrivals {
     sql: ${TABLE}.typetag ;;
   }
 
-  measure: count {
-    type: count
+  measure: Aggregated {
+    type: sum
+    sql: ${arrivals} ;;
     drill_fields: []
   }
 }
