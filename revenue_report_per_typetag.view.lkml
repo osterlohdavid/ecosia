@@ -65,6 +65,7 @@ view: revenue_report_per_typetag {
 
   dimension: devicetype {
     label: "Device Type"
+    view_label: "Locality"
     type: string
     sql: case when ${TABLE}.devicetype ='HiFi Phone' then 'Mobile' when ${TABLE}.devicetype= 'PC' then 'Desktop'
       ELSE ${TABLE}.devicetype END;;
@@ -73,12 +74,16 @@ view: revenue_report_per_typetag {
 
 
   dimension: language {
+    group_label: "Locality"
+    view_label: "Locality"
     type: string
     sql: ${TABLE}.language ;;
     drill_fields: [detail*]
   }
 
   dimension:market {
+    group_label: "Locality"
+    view_label: "Locality"
     type: string
     description: "Bing market allocated to the user"
     map_layer_name: countries
@@ -87,6 +92,8 @@ view: revenue_report_per_typetag {
   }
 
   dimension:country {
+    group_label: "Locality"
+    view_label: "Locality"
     type: string
     description: "User location country"
     map_layer_name: countries
@@ -131,6 +138,7 @@ view: revenue_report_per_typetag {
   }
 
   measure: cost_to_serve{
+    view_label: "Locality"
     type: sum
     label: "Cost To Serve EUR"
     description: "Calculates the cost of 1000 searches"

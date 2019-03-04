@@ -3,6 +3,13 @@ connection: "hot_cluster"
 include: "*.view.lkml"                       # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
+datagroup: daily {
+  sql_trigger: SELECT CURRENT_DATE ;;
+  max_cache_age: "12 hours"
+}
+
+
+
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.
 #
@@ -25,21 +32,6 @@ explore: revenue_report_per_country {
 }
 
 
-explore: overall_report_per_country {
-  view_name: revenue_report_per_country
-  group_label: "Overall Revenue"
-  description: "Aggregated Revenue from Display Ads per Country (data source:MSFT pubcenter)"
-  join: revenue_report_product_ad {
-    type: left_outer
-    relationship: many_to_many
-    sql_on: ${revenue_report_per_country.country}=${revenue_report_product_ad.country}
-          and ${revenue_report_per_country.adunitid} = ${revenue_report_product_ad.adunitid}
-          and ${revenue_report_per_country.hour_raw} =${revenue_report_product_ad.hour_raw}
-          and ${revenue_report_per_country.revenue_date} =${revenue_report_product_ad.revenue_date};;
-  }
-}
-
-
 explore: revenue_report_product_ad {
   view_label: "Bing Product Ads Report (per Country)"
   group_label: "Overall Revenue"
@@ -47,32 +39,34 @@ explore: revenue_report_product_ad {
 }
 
 explore: revenue_report_per_typetag {
+  label: "Revenue explore"
   view_label: "Marketing Revenue"
   group_label: "Marketing"
   description: "Aggregated Revenue per Marketing Source - aka Typetag (data source:MSFT pubcenter)"
-  join: link_database
-  {type:left_outer
-    relationship:one_to_one
+  join: link_database {
+    # view_label: "Marketing Revenue"
+    type:left_outer
+    relationship: many_to_one
     sql_on:${revenue_report_per_typetag.typetag}=${link_database.typetag};;
   }
 }
 
-explore: marketing_events {
-  view_name: events
-  group_label: "Marketing"
-  join: org_ecosia_ecfg_context_1 {
-    view_label: "ECFG User cookie data"
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${events.event_id} = ${org_ecosia_ecfg_context_1.root_id} ;;
-  }
-  join: link_database
-  {view_label:"Campaign Attributes"
-    type: left_outer
-    relationship: many_to_one
-    sql_on:${org_ecosia_ecfg_context_1.typetag}=${link_database.typetag};;
-  }
-}
+# explore: marketing_events {
+#   view_name: events
+#   group_label: "Marketing"
+#   join: org_ecosia_ecfg_context_1 {
+#     view_label: "ECFG User cookie data"
+#     type: left_outer
+#     relationship: one_to_one
+#     sql_on: ${events.event_id} = ${org_ecosia_ecfg_context_1.root_id} ;;
+#   }
+#   join: link_database
+#   {view_label:"Campaign Attributes"
+#     type: left_outer
+#     relationship: many_to_one
+#     sql_on:${org_ecosia_ecfg_context_1.typetag}=${link_database.typetag};;
+#   }
+# }
 
 explore: arrivals{
   view_name: arrivals
@@ -90,12 +84,21 @@ explore: marketing_touches_desktop{
 view_name: touches
 description: "Touches per user on desktop"
 group_label: "Marketing"
-join: link_database
-  {view_label:"Campaign Attributes"
+
+join: link_database {
+    view_label:"Campaign Attributes"
     type: left_outer
     relationship: many_to_one
     sql_on:${touches.typetag}=${link_database.typetag};;
   }
+
+join: user_touch_facts {
+  view_label: "Touches"
+  type: left_outer
+  sql_on: ${touches.domain_userid} = ${user_touch_facts.domain_userid} ;;
+  relationship: many_to_one
+}
+
 }
 
 explore: marketing_first_touch_desktop{

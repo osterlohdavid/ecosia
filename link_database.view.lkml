@@ -12,6 +12,7 @@ view: link_database {
   }
 
   dimension: countrycode {
+    label: "Country Code"
     type: string
     sql: ${TABLE}."country/code" ;;
   }

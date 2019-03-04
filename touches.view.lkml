@@ -16,7 +16,7 @@ view: touches {
     sql: ${TABLE}.br_lang_2 ;;
   }
 
-  dimension_group: collector_tstamp {
+  dimension_group: touch {
     type: time
     timeframes: [
       raw,
@@ -28,6 +28,11 @@ view: touches {
       year
     ]
     sql: ${TABLE}.collector_tstamp ;;
+  }
+
+  dimension: is_first_touch {
+    type: yesno
+    sql: ${touch_raw} = ${user_touch_facts.first_user_touch_raw} ;;
   }
 
   dimension: domain_userid {
@@ -128,5 +133,20 @@ view: touches {
   measure: count {
     type: count
     drill_fields: []
+  }
+
+  measure: count_first_touches {
+    type: count
+    drill_fields: []
+    filters: {
+      field: is_first_touch
+      value: "yes"
+    }
+  }
+
+  measure: percent_first_touches {
+    type: number
+    sql: 1.00 * ${count_first_touches} / COALESCE(${count}, NULL) ;;
+    value_format_name: percent_2
   }
 }
