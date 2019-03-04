@@ -9,7 +9,6 @@ datagroup: daily {
 }
 
 
-
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.
 #
@@ -25,15 +24,16 @@ datagroup: daily {
 #   }
 # }
 
-explore: revenue_report_per_country {
+explore: revenue_display_ad{
   view_name: revenue_report_per_country
   group_label: "Overall Revenue"
-  description: "Aggregated Revenue from Display Ads per Country (data source:MSFT pubcenter)"
+  description: "Aggregated Revenue from Display Ads(data source:MSFT pubcenter)"
 }
 
 
-explore: revenue_report_product_ad {
-  view_label: "Bing Product Ads Report (per Country)"
+explore: revenue_product_ad {
+  view_name: revenue_report_product_ad
+  view_label: "Aggregated Revenue from Product Ads(data source:MSFT pubcenter)"
   group_label: "Overall Revenue"
   description: "Aggregated Revenue from Product Ads per Country (data source:MSFT pubcenter)"
 }
@@ -97,23 +97,12 @@ join: user_touch_facts {
   type: left_outer
   sql_on: ${touches.domain_userid} = ${user_touch_facts.domain_userid} ;;
   relationship: many_to_one
-}
-
-}
-
-explore: marketing_first_touch_desktop{
-  view_name: ftouch_all
-  description: "First marketing touch per user on desktop"
-  group_label: "Marketing"
-  join: link_database
-  {view_label:"Campaign Attributes"
-    type: left_outer
-    relationship: many_to_one
-    sql_on:${ftouch_all.typetag}=${link_database.typetag};;
   }
 }
 
+
 explore: installs{
+  hidden: yes
   view_name: install_all
   description: "Installs on desktop with reactivation"
   group_label: "Installs and Uninstalls"
@@ -127,6 +116,7 @@ explore: installs{
 
 
   explore: events {
+    hidden: yes
     group_label: "Atomic events"
     join: org_ecosia_ecfg_context_1 {
       view_label: "ECFG User cookie data"
@@ -191,6 +181,7 @@ explore: installs{
   }
 
   explore: search_events{
+    hidden: yes
     group_label: "Product"
     view_name: org_ecosia_search_event_1
     join: org_ecosia_ecfg_context_1 {
