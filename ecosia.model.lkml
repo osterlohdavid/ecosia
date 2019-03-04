@@ -76,6 +76,7 @@ explore: marketing_events {
 
 explore: arrivals{
   view_name: arrivals
+  description: "Aggregated Arrivals per Day"
   group_label: "Marketing"
   join: link_database
   {view_label:"Campaign Attributes"
@@ -87,6 +88,7 @@ explore: arrivals{
 
 explore: marketing_touches_desktop{
 view_name: touches
+description: "Touches per user on desktop"
 group_label: "Marketing"
 join: link_database
   {view_label:"Campaign Attributes"
@@ -98,6 +100,7 @@ join: link_database
 
 explore: marketing_first_touch_desktop{
   view_name: ftouch_all
+  description: "First marketing touch per user on desktop"
   group_label: "Marketing"
   join: link_database
   {view_label:"Campaign Attributes"
@@ -107,20 +110,23 @@ explore: marketing_first_touch_desktop{
   }
 }
 
-
-
-
-
-
-
-
-
+explore: installs{
+  view_name: install_all
+  description: "Installs on desktop with reactivation"
+  group_label: "Installs and Uninstalls"
+  join: link_database
+  {view_label:"Campaign Attributes"
+    type: left_outer
+    relationship: many_to_one
+    sql_on:${install_all.typetag}=${link_database.typetag};;
+  }
+}
 
 
   explore: events {
+    group_label: "Atomic events"
     join: org_ecosia_ecfg_context_1 {
       view_label: "ECFG User cookie data"
-      group_label: "Atomic events"
       type: left_outer
       relationship: one_to_one
       sql_on: ${events.event_id} = ${org_ecosia_ecfg_context_1.root_id} ;;
@@ -182,6 +188,7 @@ explore: marketing_first_touch_desktop{
   }
 
   explore: search_events{
+    group_label: "Product"
     view_name: org_ecosia_search_event_1
     join: org_ecosia_ecfg_context_1 {
       view_label: "ECFG"
