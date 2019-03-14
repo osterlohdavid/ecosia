@@ -599,65 +599,83 @@ view: events {
 
   dimension: refr_medium {
     group_label: "Referral Page Information"
-
+    label: "Type of referer"
     type: string
     sql: ${TABLE}.refr_medium ;;
   }
 
   dimension: refr_source {
+    group_label: "Referral Page Information"
+    label: "Name of referer"
     type: string
     sql: ${TABLE}.refr_source ;;
   }
 
   dimension: refr_term {
+    group_label: "Referral Page Information"
+    label: "SEO keywords"
     type: string
     sql: ${TABLE}.refr_term ;;
   }
 
   dimension: refr_urlfragment {
+    group_label: "Referral Page Information"
+    hidden: yes
     type: string
     sql: ${TABLE}.refr_urlfragment ;;
   }
 
   dimension: refr_urlhost {
+    group_label: "Referral Page Information"
+    label: "Referer URL"
     type: string
     sql: ${TABLE}.refr_urlhost ;;
   }
 
   dimension: refr_urlpath {
+    group_label: "Referral Page Information"
+    label: "Referer URL details"
     type: string
     sql: ${TABLE}.refr_urlpath ;;
   }
 
   dimension: refr_urlport {
+    group_label: "Referral Page Information"
+    hidden: yes
     type: number
     sql: ${TABLE}.refr_urlport ;;
   }
 
   dimension: refr_urlquery {
+    group_label: "Referral Page Information"
     type: string
     sql: ${TABLE}.refr_urlquery ;;
   }
 
   dimension: refr_urlscheme {
+    group_label: "Referral Page Information"
+    hidden: yes
     type: string
     sql: ${TABLE}.refr_urlscheme ;;
   }
 
   dimension: se_action {
     type: string
-    label: "Event Action"
+    label: "Action performed"
+    description: "A type of action e.g. click, start-video, launch"
     sql: ${TABLE}.se_action ;;
   }
 
   dimension: se_category {
     type: string
     label: "Event Category"
+    description: "A wider description of where/how the event is triggered, can be e.g. location (info, app intro, serp)"
     sql: ${TABLE}.se_category ;;
   }
 
   dimension: se_label {
     type: string
+    description: "The object of the action, e.g maps, video"
     label: "Event Label"
     sql: ${TABLE}.se_label ;;
   }
@@ -665,12 +683,14 @@ view: events {
   dimension: se_property {
     type: string
     label: "Event Property"
+    description: "A property associated with the object of the action"
     sql: ${TABLE}.se_property ;;
   }
 
   dimension: se_value {
     type: number
     label: "Event Value"
+    description: "A numerical value associated with the event"
     sql: ${TABLE}.se_value ;;
   }
 
@@ -795,6 +815,7 @@ view: events {
   }
 
   dimension_group: true_tstamp {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -834,6 +855,7 @@ view: events {
 
   dimension: useragent {
     type: string
+    hidden: yes
     sql: ${TABLE}.useragent ;;
   }
 
@@ -862,11 +884,13 @@ view: events {
   measure: number_of_users
   {type:count_distinct
     sql: ${TABLE}.domain_userid ;;
+    drill_fields: [detail*]
     }
 
   measure: number_of_sessions
   {type:count_distinct
     sql: ${TABLE}.session_id ;;
+    drill_fields: [detail*]
     }
 
   # ----- Sets of fields for drilling ------
