@@ -13,6 +13,7 @@ view: at_ptqs {
   }
 
   dimension: addensity {
+    description: "Avg no. of ads returned per request "
     type: number
     sql: ${TABLE}.addensity ;;
   }
