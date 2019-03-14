@@ -73,7 +73,7 @@ explore: arrivals{
   description: "Aggregated Arrivals per Day"
   group_label: "Marketing"
   join: link_database
-  {view_label:"Campaign Attributes"
+  {view_label: "Arrivals"
     type: left_outer
     relationship: many_to_one
     sql_on:${arrivals.typetag}=${link_database.typetag};;
@@ -102,7 +102,6 @@ join: user_touch_facts {
 
 
 explore: installs{
-  hidden: yes
   view_name: install_all
   description: "Installs on desktop with reactivation"
   group_label: "Installs and Uninstalls"
@@ -116,7 +115,6 @@ explore: installs{
 
 
   explore: events {
-    hidden: yes
     group_label: "Atomic events"
     join: org_ecosia_ecfg_context_1 {
       view_label: "ECFG User cookie data"
@@ -181,7 +179,6 @@ explore: installs{
   }
 
   explore: search_events{
-    hidden: yes
     group_label: "Product"
     view_name: org_ecosia_search_event_1
     join: org_ecosia_ecfg_context_1 {

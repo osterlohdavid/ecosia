@@ -94,44 +94,55 @@ view: events {
 
   dimension: br_lang {
     label: "Browser Language"
+    group_label: "Browser"
     type: string
     sql: ${TABLE}.br_lang ;;
   }
 
   dimension: br_name {
     label: "Browser Name"
+    group_label: "Browser"
     type: string
     sql: ${TABLE}.br_name ;;
   }
 
   dimension: br_renderengine {
+    hidden: yes
     type: string
     sql: ${TABLE}.br_renderengine ;;
   }
 
   dimension: br_type {
+    group_label: "Browser"
     type: string
     label: "Browser Type"
     sql: ${TABLE}.br_type ;;
   }
 
   dimension: br_version {
+    group_label: "Browser"
     type: string
     label: "Browser Version"
     sql: ${TABLE}.br_version ;;
   }
 
+## ask designers of a meaningful grouping of this
+
   dimension: br_viewheight {
+    group_label: "Browser"
+    hidden: yes
     type: number
     sql: ${TABLE}.br_viewheight ;;
   }
 
   dimension: br_viewwidth {
+    group_label: "Browser"
+    hidden: yes
     type: number
     sql: ${TABLE}.br_viewwidth ;;
   }
 
-  dimension_group: collector_tstamp {
+  dimension_group: event {
     type: time
     timeframes: [
       raw,
@@ -146,6 +157,7 @@ view: events {
   }
 
   dimension_group: derived_tstamp {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -159,6 +171,7 @@ view: events {
     sql: ${TABLE}.derived_tstamp ;;
   }
 
+##designer things
   dimension: doc_charset {
     type: string
     hidden:  yes
@@ -178,21 +191,26 @@ view: events {
   }
 
   dimension: domain_sessionid {
+    hidden: yes
     type: string
     sql: ${TABLE}.domain_sessionid ;;
   }
 
   dimension: domain_sessionidx {
+    hidden: yes
     type: number
     sql: ${TABLE}.domain_sessionidx ;;
   }
 
   dimension: domain_userid {
+    hidden: yes
     type: string
     sql: ${TABLE}.domain_userid ;;
   }
 
   dimension_group: dvce_created_tstamp {
+    ### not set properly in the
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -208,21 +226,25 @@ view: events {
 
   dimension: dvce_ismobile {
     type: yesno
-    label: "Is Mobile Device?"
+    label: "Is the device mobile?"
     sql: ${TABLE}.dvce_ismobile ;;
   }
 
+###talk to designers about this
   dimension: dvce_screenheight {
+    hidden: yes
     type: number
     sql: ${TABLE}.dvce_screenheight ;;
   }
 
   dimension: dvce_screenwidth {
+    hidden: yes
     type: number
     sql: ${TABLE}.dvce_screenwidth ;;
   }
 
   dimension_group: dvce_sent_tstamp {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -249,6 +271,7 @@ view: events {
   }
 
   dimension_group: etl_tstamp {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -263,16 +286,19 @@ view: events {
   }
 
   dimension: event {
+    hidden: yes
     type: string
     sql: ${TABLE}.event ;;
   }
 
   dimension: event_fingerprint {
+    hidden: yes
     type: string
     sql: ${TABLE}.event_fingerprint ;;
   }
 
   dimension: event_format {
+    hidden: yes
     type: string
     sql: ${TABLE}.event_format ;;
   }
@@ -283,6 +309,7 @@ view: events {
   }
 
   dimension: event_vendor {
+    hidden: yes
     type: string
     sql: ${TABLE}.event_vendor ;;
   }
@@ -294,43 +321,55 @@ view: events {
   }
 
   dimension: geo_city {
+    group_label: "Location"
     type: string
     sql: ${TABLE}.geo_city ;;
   }
 
   dimension: geo_country {
+    group_label: "Location"
     type: string
     sql: ${TABLE}.geo_country ;;
   }
-
+### we have to discuss how to use it for offline marketing campaign tracking
   dimension: geo_latitude {
+    ###deleted after 4 days
+    group_label: "Location"
     type: number
     hidden:  yes
     sql: ${TABLE}.geo_latitude ;;
   }
 
   dimension: geo_longitude {
+    ###deleted after 4 days
+    group_label: "Location"
     type: number
     hidden:  yes
     sql: ${TABLE}.geo_longitude ;;
   }
 
   dimension: geo_region {
+    group_label: "Location"
     type: string
     sql: ${TABLE}.geo_region ;;
   }
 
   dimension: geo_region_name {
+    group_label: "Location"
     type: string
     sql: ${TABLE}.geo_region_name ;;
   }
 
   dimension: geo_timezone {
+    group_label: "Location information"
+    hidden: yes
     type: string
     sql: ${TABLE}.geo_timezone ;;
   }
 
   dimension: geo_zipcode {
+    group_label: "Location information"
+    hidden: yes
     type: string
     sql: ${TABLE}.geo_zipcode ;;
   }
@@ -347,8 +386,10 @@ view: events {
     sql: ${TABLE}.ip_isp ;;
   }
 
+### could be maaaybe useful at some point for product
   dimension: ip_netspeed {
     type: string
+    hidden: yes
     sql: ${TABLE}.ip_netspeed ;;
   }
 
@@ -358,44 +399,57 @@ view: events {
     sql: ${TABLE}.ip_organization ;;
   }
 
-  dimension: mkt_campaign {
+  dimension: campaign {
+    group_label: "UTM parameters campaign info"
     type: string
-
     sql: ${TABLE}.mkt_campaign ;;
   }
 
-  dimension: mkt_clickid {
+  dimension: clickid {
+    group_label: "UTM parameters campaign info"
     type: string
+    hidden: yes
     sql: ${TABLE}.mkt_clickid ;;
   }
 
-  dimension: mkt_content {
+  dimension: content {
+    group_label: "UTM parameters campaign info"
+    label: "Campaign Content"
     type: string
     sql: ${TABLE}.mkt_content ;;
   }
 
-  dimension: mkt_medium {
+  dimension: medium {
+    group_label: "UTM parameters campaign info"
+    label: "Campaign Medium"
     type: string
     sql: ${TABLE}.mkt_medium ;;
   }
 
-  dimension: mkt_network {
+  dimension: network {
+    group_label: "UTM parameters campaign info"
+    label: "Campaign Network"
     type: string
     sql: ${TABLE}.mkt_network ;;
   }
 
   dimension: mkt_source {
+    group_label: "UTM parameters campaign info"
+    label: "Campaign Source"
     type: string
     sql: ${TABLE}.mkt_source ;;
   }
 
   dimension: mkt_term {
+    group_label: "UTM parameters campaign info"
+    label: "Campaign Source"
     type: string
     sql: ${TABLE}.mkt_term ;;
   }
 
   dimension: name_tracker {
     type: string
+    hidden: yes
     sql: ${TABLE}.name_tracker ;;
   }
 
@@ -407,7 +461,7 @@ view: events {
 
   dimension: os_family {
     type: string
-    label: "OS"
+    label: "Operating System"
     sql: ${TABLE}.os_family ;;
   }
 
@@ -419,64 +473,85 @@ view: events {
 
   dimension: os_name {
     type: string
+    label:"Operating System Name"
     sql: ${TABLE}.os_name ;;
   }
 
   dimension: os_timezone {
+    hidden: yes
     type: string
     sql: ${TABLE}.os_timezone ;;
   }
 
   dimension: page_referrer {
+    group_label: "Page Information"
+    description: "The page directly before this page"
     type: string
     sql: ${TABLE}.page_referrer ;;
   }
 
   dimension: page_title {
+    group_label: "Page Information"
     type: string
     sql: ${TABLE}.page_title ;;
   }
 
   dimension: page_url {
+    group_label: "Page Information"
     type: string
     sql: ${TABLE}.page_url ;;
   }
 
   dimension: page_urlfragment {
+    group_label: "Page Information"
+    label: "Further URL detail"
     type: string
     sql: ${TABLE}.page_urlfragment ;;
   }
 
+##we can group this later if needed
   dimension: page_urlhost {
+    group_label: "Page Information"
     type: string
+    hidden: yes
     sql: ${TABLE}.page_urlhost ;;
   }
 
   dimension: page_urlpath {
+    group_label: "Page Information"
+    hidden: yes
     type: string
     sql: ${TABLE}.page_urlpath ;;
   }
 
   dimension: page_urlport {
+    group_label: "Page Information"
+    hidden: yes
     type: number
     sql: ${TABLE}.page_urlport ;;
   }
 
   dimension: page_urlquery {
+    group_label: "Page Information"
+    hidden: yes
     type: string
     sql: ${TABLE}.page_urlquery ;;
   }
 
   dimension: page_urlscheme {
+    group_label: "Page Information"
+    hidden: yes
     type: string
     sql: ${TABLE}.page_urlscheme ;;
   }
 
   dimension: platform {
+    hidden: yes
     type: string
     sql: ${TABLE}.platform ;;
   }
 
+###talk to designers on this
   dimension: pp_xoffset_max {
     type: number
     hidden:  yes
@@ -508,6 +583,7 @@ view: events {
   }
 
   dimension_group: refr_dvce_tstamp {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -522,6 +598,8 @@ view: events {
   }
 
   dimension: refr_medium {
+    group_label: "Referral Page Information"
+
     type: string
     sql: ${TABLE}.refr_medium ;;
   }
