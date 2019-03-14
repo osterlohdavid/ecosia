@@ -34,6 +34,7 @@ view: events {
 
   dimension: br_family {
     label: "Browser"
+    group_label: "Browser"
     type: string
     sql: ${TABLE}.br_family ;;
   }
@@ -100,7 +101,7 @@ view: events {
   }
 
   dimension: br_name {
-    label: "Browser Name"
+    label: " Full Browser Name"
     group_label: "Browser"
     type: string
     sql: ${TABLE}.br_name ;;
@@ -226,6 +227,7 @@ view: events {
 
   dimension: dvce_ismobile {
     type: yesno
+    group_label: "Device"
     label: "Is the device mobile?"
     sql: ${TABLE}.dvce_ismobile ;;
   }
@@ -260,6 +262,7 @@ view: events {
 
   dimension: dvce_type {
     type: string
+    group_label: "Device"
     label: "Device Type"
     sql: ${TABLE}.dvce_type ;;
   }
@@ -461,18 +464,21 @@ view: events {
 
   dimension: os_family {
     type: string
+    group_label: "OS Information"
     label: "Operating System"
     sql: ${TABLE}.os_family ;;
   }
 
   dimension: os_manufacturer {
     type: string
+    group_label: "OS Information"
     hidden:  yes
     sql: ${TABLE}.os_manufacturer ;;
   }
 
   dimension: os_name {
     type: string
+    group_label: "OS Information"
     label:"Operating System Name"
     sql: ${TABLE}.os_name ;;
   }
@@ -661,6 +667,7 @@ view: events {
 
   dimension: se_action {
     type: string
+    group_label: "Event Description"
     label: "Action performed"
     description: "A type of action e.g. click, start-video, launch"
     sql: ${TABLE}.se_action ;;
@@ -669,12 +676,14 @@ view: events {
   dimension: se_category {
     type: string
     label: "Event Category"
+    group_label: "Event Description"
     description: "A wider description of where/how the event is triggered, can be e.g. location (info, app intro, serp)"
     sql: ${TABLE}.se_category ;;
   }
 
   dimension: se_label {
     type: string
+    group_label: "Event Description"
     description: "The object of the action, e.g maps, video"
     label: "Event Label"
     sql: ${TABLE}.se_label ;;
@@ -682,6 +691,7 @@ view: events {
 
   dimension: se_property {
     type: string
+    group_label: "Event Description"
     label: "Event Property"
     description: "A property associated with the object of the action"
     sql: ${TABLE}.se_property ;;
@@ -689,6 +699,7 @@ view: events {
 
   dimension: se_value {
     type: number
+    group_label: "Event Description"
     label: "Event Value"
     description: "A numerical value associated with the event"
     sql: ${TABLE}.se_value ;;
@@ -861,6 +872,7 @@ view: events {
 
   dimension: v_collector {
     type: string
+    hidden: yes
     sql: ${TABLE}.v_collector ;;
   }
 
