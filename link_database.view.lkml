@@ -18,20 +18,23 @@ view: link_database {
   }
 
   dimension: final_url {
+    label: "Final URL (Typetag)"
     type: string
     sql: ${TABLE}."final url" ;;
   }
 
   dimension: final_url__analytics {
+    label: "Final URL (Short.cm)"
     type: string
     sql: ${TABLE}."final url + analytics" ;;
   }
-
+##same as 'Typetag'
   dimension: gid {
+    hidden: yes
     type: string
     sql: ${TABLE}.gid ;;
   }
-
+###QUESTION: what is this? (NM)
   dimension: index {
     type: number
     sql: ${TABLE}.index ;;
