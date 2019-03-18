@@ -1,3 +1,5 @@
+## Zsofia will delete this as is derived from Touches
+
 view: ftouch_all {
   sql_table_name: mkt.ftouch_all ;;
 

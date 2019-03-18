@@ -37,8 +37,8 @@ view: install_all {
   }
 ## This one comes from Bing's data, the other one comes from the browser
   dimension: country {
-    group_label: "Location"
-    label: "Country?"
+    label: "Bing Country Allocation"
+    description: "This comes from Bing's data"
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
@@ -76,10 +76,10 @@ view: install_all {
     sql: ${TABLE}.event_id ;;
   }
 
-## QUESTION: what is this? (NM)
   dimension: firstsearch {
-    type: number
-    sql: ${TABLE}.firstsearch ;;
+    label: "Has the user searched before?"
+    type: yesno
+    sql: ${TABLE}.firstsearch<1 ;;
   }
 
   dimension: geo_city {
@@ -92,6 +92,7 @@ view: install_all {
   dimension: geo_country {
     group_label: "Location"
     label: "Country"
+    description: "Data comes from the browser, so it's where the user is right now"
     type: string
     sql: ${TABLE}.geo_country ;;
   }
@@ -123,8 +124,10 @@ view: install_all {
     sql: ${TABLE}.language ;;
   }
 
-## QUESTION: what is this? (NM)
+##Not updated after the install. Unix Timestamp.
   dimension: lasttree {
+    hidden: yes
+    description: "The last time the tree counter went up, at the point of install."
     type: number
     sql: ${TABLE}.lasttree ;;
   }
@@ -135,7 +138,7 @@ view: install_all {
     sql: ${TABLE}.os_family ;;
   }
 
-## QUESTION: what is this? (NM)
+
   dimension: personal {
     hidden: yes
     type: number
@@ -155,9 +158,26 @@ view: install_all {
   }
 
   dimension: trees {
+    description: "The value of the user's Tree Count"
+    hidden: yes
     type: number
     sql: ${TABLE}.trees ;;
   }
+
+dimension: tree_counter{
+  description: "The value of the user's Tree Count"
+  type: string
+  sql:CASE
+WHEN install_all.trees  < 1 THEN '0'
+WHEN install_all.trees  >= 1 AND install_all.trees  < 10 THEN '1 to 9'
+WHEN install_all.trees  >= 10 AND install_all.trees  < 30 THEN '10 to 29'
+WHEN install_all.trees  >= 30 AND install_all.trees  < 100 THEN '30 to 99'
+WHEN install_all.trees  >= 100 AND install_all.trees  < 500 THEN '100 to 499'
+WHEN install_all.trees  >= 500 THEN '500 or Above'
+ELSE 'Undefined'
+END;;
+}
+
 
   dimension: typetag {
     type: string
