@@ -42,7 +42,7 @@ view: install_all {
     description: "This comes from Bing's data"
     type: string
     map_layer_name: countries
-    sql: ${TABLE}.country ;;
+    sql: UPPER(${TABLE}.country) ;;
   }
 
   dimension: devicetype {

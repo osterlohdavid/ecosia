@@ -1,5 +1,5 @@
 view: org_ecosia_ecfg_context_1 {
-  view_label: "ECFG cookie context"
+  label: "Cookie"
   sql_table_name: atomic.org_ecosia_ecfg_context_1 ;;
 
 

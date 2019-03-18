@@ -21,74 +21,89 @@ view: events {
   }
 
   dimension: br_colordepth {
+    label: "Color depth"
+    group_label: "Browser - More info"
+    description: "Color resolution (in bits)"
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_colordepth ;;
   }
 
   dimension: br_cookies {
+    description:"Are cookies allowed?"
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_cookies ;;
   }
 
   dimension: br_family {
     label: "Browser"
+    group_label: "Browser"
     type: string
     sql: ${TABLE}.br_family ;;
   }
 
   dimension: br_features_director {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_director ;;
   }
 
   dimension: br_features_flash {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_flash ;;
   }
 
   dimension: br_features_gears {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_gears ;;
   }
 
   dimension: br_features_java {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_java ;;
   }
 
   dimension: br_features_pdf {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_pdf ;;
   }
 
   dimension: br_features_quicktime {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_quicktime ;;
   }
 
   dimension: br_features_realplayer {
+    group_label: "Browser - More info"
     type: yesno
-    hidden:  yes
+    hidden:  no
     sql: ${TABLE}.br_features_realplayer ;;
   }
 
   dimension: br_features_silverlight {
+    group_label: "Browser - More info"
     type: yesno
-    hidden:  yes
+    hidden:  no
     sql: ${TABLE}.br_features_silverlight ;;
   }
 
   dimension: br_features_windowsmedia {
+    group_label: "Browser - More info"
     type: yesno
-    hidden:  yes
+    hidden:  no
     sql: ${TABLE}.br_features_windowsmedia ;;
   }
 
@@ -100,20 +115,21 @@ view: events {
   }
 
   dimension: br_name {
-    label: "Browser Name"
-    group_label: "Browser"
+    label: " Full Browser Name"
+    group_label: "Browser - More info"
     type: string
     sql: ${TABLE}.br_name ;;
   }
 
   dimension: br_renderengine {
+    group_label: "Browser - More info"
     hidden: yes
     type: string
     sql: ${TABLE}.br_renderengine ;;
   }
 
   dimension: br_type {
-    group_label: "Browser"
+    group_label: "Browser - More info"
     type: string
     label: "Browser Type"
     sql: ${TABLE}.br_type ;;
@@ -126,7 +142,6 @@ view: events {
     sql: ${TABLE}.br_version ;;
   }
 
-## ask designers of a meaningful grouping of this
 
   dimension: br_viewheight {
     group_label: "Browser"
@@ -226,6 +241,7 @@ view: events {
 
   dimension: dvce_ismobile {
     type: yesno
+    group_label: "Device"
     label: "Is the device mobile?"
     sql: ${TABLE}.dvce_ismobile ;;
   }
@@ -237,11 +253,36 @@ view: events {
     sql: ${TABLE}.dvce_screenheight ;;
   }
 
+  dimension: device_screenheight {
+    group_label: "Device"
+    hidden: yes
+    ##required_access_grants: [can_see_designer_fields]
+    type: tier
+    tiers: [400,550,768,992,1200]
+    style: integer
+    sql: ${TABLE}.dvce_screenheight ;;
+  }
+
   dimension: dvce_screenwidth {
+    group_label: "Device"
     hidden: yes
     type: number
     sql: ${TABLE}.dvce_screenwidth ;;
   }
+  dimension: device_screenwidth {
+    group_label: "Device"
+    ##required_access_grants: [can_see_designer_fields]
+    type: tier
+    tiers: [400,550,768,992,1200]
+    style: integer
+    sql: ${TABLE}.dvce_screenwidth ;;
+  }
+  dimension: landscaped_device{
+    type: yesno
+    group_label: "Device"
+    sql: ${dvce_screenwidth}>${dvce_screenheight} ;;
+  }
+
 
   dimension_group: dvce_sent_tstamp {
     hidden: yes
@@ -260,6 +301,7 @@ view: events {
 
   dimension: dvce_type {
     type: string
+    group_label: "Device"
     label: "Device Type"
     sql: ${TABLE}.dvce_type ;;
   }
@@ -461,18 +503,21 @@ view: events {
 
   dimension: os_family {
     type: string
+    group_label: "OS Information"
     label: "Operating System"
     sql: ${TABLE}.os_family ;;
   }
 
   dimension: os_manufacturer {
     type: string
+    group_label: "OS Information"
     hidden:  yes
     sql: ${TABLE}.os_manufacturer ;;
   }
 
   dimension: os_name {
     type: string
+    group_label: "OS Information"
     label:"Operating System Name"
     sql: ${TABLE}.os_name ;;
   }
@@ -661,6 +706,7 @@ view: events {
 
   dimension: se_action {
     type: string
+    group_label: "Event Description"
     label: "Action performed"
     description: "A type of action e.g. click, start-video, launch"
     sql: ${TABLE}.se_action ;;
@@ -669,12 +715,14 @@ view: events {
   dimension: se_category {
     type: string
     label: "Event Category"
+    group_label: "Event Description"
     description: "A wider description of where/how the event is triggered, can be e.g. location (info, app intro, serp)"
     sql: ${TABLE}.se_category ;;
   }
 
   dimension: se_label {
     type: string
+    group_label: "Event Description"
     description: "The object of the action, e.g maps, video"
     label: "Event Label"
     sql: ${TABLE}.se_label ;;
@@ -682,6 +730,7 @@ view: events {
 
   dimension: se_property {
     type: string
+    group_label: "Event Description"
     label: "Event Property"
     description: "A property associated with the object of the action"
     sql: ${TABLE}.se_property ;;
@@ -689,6 +738,7 @@ view: events {
 
   dimension: se_value {
     type: number
+    group_label: "Event Description"
     label: "Event Value"
     description: "A numerical value associated with the event"
     sql: ${TABLE}.se_value ;;
@@ -861,6 +911,7 @@ view: events {
 
   dimension: v_collector {
     type: string
+    hidden: yes
     sql: ${TABLE}.v_collector ;;
   }
 
