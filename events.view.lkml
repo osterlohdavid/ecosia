@@ -45,6 +45,8 @@ view: events {
   }
 
   dimension: br_features_director {
+    label: "Features-Director"
+    description: "Whether Adobe Shockwave is installed"
     group_label: "Browser - More info"
     type: yesno
     hidden: no
@@ -52,6 +54,8 @@ view: events {
   }
 
   dimension: br_features_flash {
+    label: "Features-flash"
+    description: "Whether flash is installed"
     group_label: "Browser - More info"
     type: yesno
     hidden: no
@@ -60,6 +64,8 @@ view: events {
 
   dimension: br_features_gears {
     group_label: "Browser - More info"
+    description: "Whether Google gears is installed"
+    label: "Features-gears"
     type: yesno
     hidden: no
     sql: ${TABLE}.br_features_gears ;;
@@ -67,12 +73,16 @@ view: events {
 
   dimension: br_features_java {
     group_label: "Browser - More info"
+    label: "Features-Java"
+    description: "Whether Java is installed"
     type: yesno
     hidden: no
     sql: ${TABLE}.br_features_java ;;
   }
 
   dimension: br_features_pdf {
+    label: "Features-pdf"
+    description: "Whether the browser recognises PDFs"
     group_label: "Browser - More info"
     type: yesno
     hidden: no
@@ -80,6 +90,8 @@ view: events {
   }
 
   dimension: br_features_quicktime {
+    label: "Features-Quicktime"
+    description: "Whether Quicktime is installed"
     group_label: "Browser - More info"
     type: yesno
     hidden: no
@@ -87,6 +99,8 @@ view: events {
   }
 
   dimension: br_features_realplayer {
+    label: "Features-Realplayer"
+    description: "Whether Realplayer is installed"
     group_label: "Browser - More info"
     type: yesno
     hidden:  no
@@ -94,6 +108,8 @@ view: events {
   }
 
   dimension: br_features_silverlight {
+    label: "Features-Silverlight"
+    description: "Whether Silverlight is installed"
     group_label: "Browser - More info"
     type: yesno
     hidden:  no
@@ -101,6 +117,8 @@ view: events {
   }
 
   dimension: br_features_windowsmedia {
+    label: "Features-WindowsMedia"
+    description: "Whether mplayer2 is installed"
     group_label: "Browser - More info"
     type: yesno
     hidden:  no
