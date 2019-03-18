@@ -178,11 +178,40 @@ ELSE 'Undefined'
 END;;
 }
 
+  dimension: is_first_install {
+    type: yesno
+    sql: ${install_timestamp_raw} = ${install_first.first_install_raw} ;;
+  }
+
 
   dimension: typetag {
     type: string
     sql: ${TABLE}.typetag ;;
   }
+
+  measure: count_first_install {
+    type: count
+    drill_fields: []
+    filters: {
+      field: is_first_install
+      value: "yes"
+    }
+  }
+
+  measure: percent_first_install {
+    description: "Users installing Ecosia for the first time ever"
+    type: number
+    sql: 1.00 * ${count_first_install} / COALESCE(${count}, NULL) ;;
+    value_format_name: percent_2
+  }
+
+  measure: reactivation{
+    description: "Users who have previously had Ecosia installed"
+    type: number
+    sql: 1.00-${percent_first_install};;
+    value_format_name: percent_2
+  }
+
 
 ## Need to add more measures
   measure: count {

@@ -6,7 +6,7 @@ view: install_first {
     sql: ${TABLE}.domain_userid ;;
   }
 
-  dimension_group: first_install_tp {
+  dimension_group: first_install {
     type: time
     timeframes: [
       raw,
