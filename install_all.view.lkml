@@ -38,9 +38,10 @@ view: install_all {
   }
 ## This one comes from Bing's data, the other one comes from the browser
   dimension: country {
-    label: "Bing Country Allocation"
+    label: "Bing Country Allocation-in grey in confluence so not in use"
     description: "This comes from Bing's data"
     type: string
+    hidden: yes
     map_layer_name: countries
     sql: UPPER(${TABLE}.country) ;;
   }
