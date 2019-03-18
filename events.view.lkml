@@ -21,14 +21,19 @@ view: events {
   }
 
   dimension: br_colordepth {
+    label: "Color depth"
+    group_label: "Browser - More info"
+    description: "Color resolution (in bits)"
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_colordepth ;;
   }
 
   dimension: br_cookies {
+    description:"Are cookies allowed?"
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_cookies ;;
   }
 
@@ -40,56 +45,65 @@ view: events {
   }
 
   dimension: br_features_director {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_director ;;
   }
 
   dimension: br_features_flash {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_flash ;;
   }
 
   dimension: br_features_gears {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_gears ;;
   }
 
   dimension: br_features_java {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_java ;;
   }
 
   dimension: br_features_pdf {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_pdf ;;
   }
 
   dimension: br_features_quicktime {
+    group_label: "Browser - More info"
     type: yesno
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.br_features_quicktime ;;
   }
 
   dimension: br_features_realplayer {
+    group_label: "Browser - More info"
     type: yesno
-    hidden:  yes
+    hidden:  no
     sql: ${TABLE}.br_features_realplayer ;;
   }
 
   dimension: br_features_silverlight {
+    group_label: "Browser - More info"
     type: yesno
-    hidden:  yes
+    hidden:  no
     sql: ${TABLE}.br_features_silverlight ;;
   }
 
   dimension: br_features_windowsmedia {
+    group_label: "Browser - More info"
     type: yesno
-    hidden:  yes
+    hidden:  no
     sql: ${TABLE}.br_features_windowsmedia ;;
   }
 
@@ -102,19 +116,20 @@ view: events {
 
   dimension: br_name {
     label: " Full Browser Name"
-    group_label: "Browser"
+    group_label: "Browser - More info"
     type: string
     sql: ${TABLE}.br_name ;;
   }
 
   dimension: br_renderengine {
+    group_label: "Browser - More info"
     hidden: yes
     type: string
     sql: ${TABLE}.br_renderengine ;;
   }
 
   dimension: br_type {
-    group_label: "Browser"
+    group_label: "Browser - More info"
     type: string
     label: "Browser Type"
     sql: ${TABLE}.br_type ;;
@@ -127,7 +142,6 @@ view: events {
     sql: ${TABLE}.br_version ;;
   }
 
-## ask designers of a meaningful grouping of this
 
   dimension: br_viewheight {
     group_label: "Browser"
@@ -239,11 +253,36 @@ view: events {
     sql: ${TABLE}.dvce_screenheight ;;
   }
 
+  dimension: device_screenheight {
+    group_label: "Device"
+    hidden: yes
+    ##required_access_grants: [can_see_designer_fields]
+    type: tier
+    tiers: [400,550,768,992,1200]
+    style: integer
+    sql: ${TABLE}.dvce_screenheight ;;
+  }
+
   dimension: dvce_screenwidth {
+    group_label: "Device"
     hidden: yes
     type: number
     sql: ${TABLE}.dvce_screenwidth ;;
   }
+  dimension: device_screenwidth {
+    group_label: "Device"
+    ##required_access_grants: [can_see_designer_fields]
+    type: tier
+    tiers: [400,550,768,992,1200]
+    style: integer
+    sql: ${TABLE}.dvce_screenwidth ;;
+  }
+  dimension: landscaped_device{
+    type: yesno
+    group_label: "Device"
+    sql: ${dvce_screenwidth}>${dvce_screenheight} ;;
+  }
+
 
   dimension_group: dvce_sent_tstamp {
     hidden: yes

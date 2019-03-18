@@ -29,7 +29,7 @@ view: install_all {
   dimension: country {
     type: string
     map_layer_name: countries
-    sql: ${TABLE}.country ;;
+    sql: UPPER(${TABLE}.country) ;;
   }
 
   dimension: devicetype {

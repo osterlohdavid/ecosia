@@ -68,17 +68,6 @@ explore: revenue_report_per_typetag {
 #   }
 # }
 
-explore: arrivals{
-  view_name: arrivals
-  description: "Aggregated Arrivals per Day"
-  group_label: "Marketing"
-  join: link_database
-  {view_label: "Arrivals"
-    type: left_outer
-    relationship: many_to_one
-    sql_on:${arrivals.typetag}=${link_database.typetag};;
-  }
-}
 
 explore: marketing_touches_desktop{
 view_name: touches
@@ -111,13 +100,28 @@ explore: installs{
     relationship: many_to_one
     sql_on:${install_all.typetag}=${link_database.typetag};;
   }
+  join: install_first {
+    view_label: "Touches"
+    type: left_outer
+    sql_on: ${install_all.domain_userid} = ${install_first.domain_userid} ;;
+    relationship: many_to_one
+  }
 }
+
+access_grant: can_see_designer_fields
+{user_attribute: designer
+  allowed_values: [ "yes"]}
+
 
 
   explore: events {
+    access_filter: {
+    field: org_ecosia_ecfg_context_1.devicetype
+    user_attribute: devicetype
+    }
     group_label: "Atomic events"
     join: org_ecosia_ecfg_context_1 {
-      view_label: "ECFG User cookie data"
+      view_label: "Events"
       type: left_outer
       relationship: one_to_one
       sql_on: ${events.event_id} = ${org_ecosia_ecfg_context_1.root_id} ;;
