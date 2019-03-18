@@ -35,11 +35,10 @@ view: install_all {
     label: "Browser Version"
     sql: ${TABLE}.br_version ;;
   }
-##QUESTION: what is this compared to the one below? (NM)
+## This one comes from Bing's data, the other one comes from the browser
   dimension: country {
     group_label: "Location"
     label: "Country?"
-    hidden: yes
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
