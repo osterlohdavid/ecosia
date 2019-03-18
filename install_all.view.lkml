@@ -1,4 +1,5 @@
 view: install_all {
+  view_label: "All Installs"
   sql_table_name: install."all" ;;
 
 ## How do we make this field more end user friendly? Let's build a look from it together.
