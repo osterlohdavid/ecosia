@@ -19,6 +19,7 @@ view: user_touch_facts {
 
   dimension_group: first_user_touch {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       date,

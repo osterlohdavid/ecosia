@@ -3,11 +3,13 @@ view: install_first {
 
   dimension: domain_userid {
     type: string
+    hidden: yes
     sql: ${TABLE}.domain_userid ;;
   }
 
   dimension_group: first_install {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,

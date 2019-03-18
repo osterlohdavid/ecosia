@@ -2,8 +2,16 @@ view: install_all {
   sql_table_name: install."all" ;;
 
 ## How do we make this field more end user friendly? Let's build a look from it together.
+  dimension: prim_key {
+    type: string
+    primary_key: yes
+    hidden: yes
+    sql: ${domain_userid}||${install_timestamp_raw};;
+  }
+
   dimension: addon {
     description: "Does the user have the Ecosia browser extension?"
+    hidden: yes
     type: number
     sql: ${TABLE}.addon ;;
   }
@@ -38,6 +46,7 @@ view: install_all {
 ## This one comes from Bing's data, the other one comes from the browser
   dimension: country {
     label: "Bing Country Allocation"
+    group_label: "Location"
     description: "This comes from Bing's data"
     type: string
     map_layer_name: countries
@@ -77,7 +86,8 @@ view: install_all {
   }
 
   dimension: firstsearch {
-    label: "Has the user searched before?"
+    group_label: "User Activity"
+    label: "Has the user searched before install?"
     type: yesno
     sql: ${TABLE}.firstsearch<1 ;;
   }
@@ -120,6 +130,7 @@ view: install_all {
   }
 
   dimension: language {
+    group_label: "Location"
     type: string
     sql: ${TABLE}.language ;;
   }
@@ -165,7 +176,8 @@ view: install_all {
   }
 
 dimension: tree_counter{
-  description: "The value of the user's Tree Count"
+  group_label: "User Activity"
+  description: "The value of the user's Tree Count before install"
   type: string
   sql:CASE
 WHEN install_all.trees  < 1 THEN '0'
@@ -189,7 +201,7 @@ END;;
     sql: ${TABLE}.typetag ;;
   }
 
-  measure: count_first_install {
+  measure: number_of_first_installs {
     type: count
     drill_fields: []
     filters: {
@@ -201,7 +213,7 @@ END;;
   measure: percent_first_install {
     description: "Users installing Ecosia for the first time ever"
     type: number
-    sql: 1.00 * ${count_first_install} / COALESCE(${count}, NULL) ;;
+    sql: 1.00 * ${number_of_first_installs} / COALESCE(${total}, NULL) ;;
     value_format_name: percent_2
   }
 
@@ -214,9 +226,9 @@ END;;
 
 
 ## Need to add more measures
-  measure: count {
+  measure: total{
     type: count
-    drill_fields: [plt_name, br_name]
+    drill_fields: []
   }
 
 }

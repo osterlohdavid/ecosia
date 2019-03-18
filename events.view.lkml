@@ -144,19 +144,33 @@ view: events {
 
 
   dimension: br_viewheight {
-    group_label: "Browser"
+    group_label: "Browser - More info"
     hidden: yes
     type: number
     sql: ${TABLE}.br_viewheight ;;
   }
 
+  dimension: viewheight {
+    group_label: "Browser - More info"
+    hidden: no
+    type: tier
+    tiers: [400,550,768,992,1200]
+    sql: ${TABLE}.br_viewheight ;;
+  }
   dimension: br_viewwidth {
-    group_label: "Browser"
+    group_label: "Browser - More info"
     hidden: yes
     type: number
     sql: ${TABLE}.br_viewwidth ;;
   }
 
+  dimension: viewwidth {
+    group_label: "Browser - More info"
+    hidden: no
+    type: tier
+    tiers: [400,550,768,992,1200]
+    sql: ${TABLE}.br_viewwidth ;;
+  }
   dimension_group: event {
     type: time
     timeframes: [

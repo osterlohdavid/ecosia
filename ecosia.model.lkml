@@ -101,7 +101,7 @@ explore: installs{
     sql_on:${install_all.typetag}=${link_database.typetag};;
   }
   join: install_first {
-    view_label: "Touches"
+    view_label: "First Installs"
     type: left_outer
     sql_on: ${install_all.domain_userid} = ${install_first.domain_userid} ;;
     relationship: many_to_one
